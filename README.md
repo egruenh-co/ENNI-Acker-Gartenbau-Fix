@@ -81,6 +81,10 @@ python fix_acker_gartenbau.py ENNI_Export.xml --bz-vorjahr 2025
 
 Die erzeugte XML-Datei kann in ENNI importiert werden. Die HERBSTANSAAT-Standardwerte (ZFrucht028, Gründüngung ohne Leguminosen, Aussaat bis 15.09., Ernterückstand ABGEFROREN, Ertrag 300) können nach dem Import in ENNI angepasst werden.
 
+## Hinweis
+
+Das Script wurde anhand der ENNI-Export-Datei von **Myfarm24** getestet. Bei Export-Dateien aus anderen Quellen können Abweichungen im XML-Format auftreten.
+
 ## Lizenz
 
 MIT – siehe [LICENSE](LICENSE).
