@@ -83,11 +83,24 @@ python fix_acker_gartenbau.py ENNI_Export.xml --bz-vorjahr 2025
 |---|---|
 | `input` | Pfad zur ENNI-XML-Eingabedatei (Dube-Export) |
 | `-o`, `--output` | Pfad zur Ausgabedatei (Standard: Eingabedatei wird überschrieben) |
-| `--schlagnummern` | Nur diese Schläge umbauen (Komma-getrennt, z.B. `9,12,15`) |
+| `--schlagnummern` | Nur diese Schläge umbauen (Komma-getrennt, z.B. `9,12,15`). Umbau erfolgt ohne Herbstansaat-Prüfung, HERBSTANSAAT wird mit Standard-Gründüngung angelegt. |
 | `--alle` | Alle GARTENBAU-Schläge umbauen (ohne Herbstansaat-Prüfung) |
 | `--no-backup` | Kein `.bak`-Backup der Eingabedatei anlegen |
 | `--bz-vorjahr` | Bezugszeitraum Vorjahr (Standard: aus XML `<bezugsjahr>` ermittelt) |
 | `--dry-run` | Nur anzeigen, was geändert würde |
+
+### HERBSTANSAAT-Standardwerte
+
+Der eingefügte HERBSTANSAAT-Anbau wird immer mit folgenden Werten angelegt — auch bei `--schlagnummern` ohne vorhandene Düngungen:
+
+| Feld | Wert |
+|---|---|
+| Fruchtart | `ZFrucht028` (ZF Gründüngung ohne Leguminosen) |
+| Aussaattermin | `bis 15.09.` |
+| Ernterückstand | `ABGEFROREN` |
+| Ertrag | `300` dt/ha |
+
+Diese Werte können nach dem Import in ENNI angepasst werden.
 
 ### Erkennungslogik (Standardmodus)
 
@@ -100,7 +113,7 @@ Ohne `--schlagnummern` oder `--alle` erkennt das Script automatisch, ob ein Schl
 
 ## Nach dem Umbau
 
-Die erzeugte XML-Datei kann in ENNI importiert werden. Die HERBSTANSAAT-Standardwerte (ZFrucht028, Gründüngung ohne Leguminosen, Aussaat bis 15.09., Ernterückstand ABGEFROREN, Ertrag 300) können nach dem Import in ENNI angepasst werden.
+Die erzeugte XML-Datei kann in ENNI importiert werden.
 
 ## Hinweis
 
