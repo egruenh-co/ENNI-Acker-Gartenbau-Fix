@@ -2,6 +2,8 @@
 
 Konvertiert **GARTENBAU**-Schläge in ENNI-XML-Dateien (Dube-Export) nach **ACKER-GARTENBAU**, damit eine Zwischenfrucht/Gründüngung (HERBSTANSAAT) dokumentiert werden kann.
 
+**Nur Schläge mit tatsächlicher Herbstansaat werden umgebaut.** Schläge ohne Herbstansaat bleiben als GARTENBAU erhalten.
+
 ## Hintergrund
 
 In ENNI gibt es zwei Gartenbau-Nutzungsarten:
@@ -15,7 +17,9 @@ Dube exportiert Gartenbau-Schläge immer als `GARTENBAU`. Wenn zwischen Vorfruch
 
 ## Was das Script macht
 
-Pro GARTENBAU-Schlag:
+Im **Standardmodus** prüft das Script pro GARTENBAU-Schlag, ob Düngungen aus dem Vorjahr unter dem GARTENBAU- oder Vorfrucht-Anbau vorliegen. Nur wenn ja (= Herbstansaat-Indikator), wird der Schlag umgebaut. Alternativ können Schlagnummern explizit per `--schlagnummern` angegeben oder mit `--alle` alle Schläge umgebaut werden.
+
+Pro betroffenen Schlag:
 
 1. **Nutzungsart** von `GARTENBAU` auf `ACKER-GARTENBAU` ändern
 2. **Bezugszeitraum der Vorfrucht** korrigieren (Dube exportiert fälschlich das aktuelle Jahr statt des Vorjahres)
@@ -51,8 +55,14 @@ Python 3.7+ wird benötigt. Es gibt keine externen Abhängigkeiten (nur Python-S
 ## Verwendung
 
 ```bash
-# Grundaufruf (überschreibt Eingabedatei, legt .bak-Backup an)
+# Standardmodus: nur Schläge mit Vorjahr-Düngungen umbauen (= Herbstansaat erkannt)
 python fix_acker_gartenbau.py ENNI_Export.xml
+
+# Nur bestimmte Schläge umbauen (explizite Schlagnummern)
+python fix_acker_gartenbau.py ENNI_Export.xml --schlagnummern 9,12
+
+# Alle GARTENBAU-Schläge umbauen (ohne Herbstansaat-Prüfung)
+python fix_acker_gartenbau.py ENNI_Export.xml --alle
 
 # Ausgabe in separate Datei
 python fix_acker_gartenbau.py ENNI_Export.xml -o ENNI_Export_fixed.xml
@@ -73,9 +83,20 @@ python fix_acker_gartenbau.py ENNI_Export.xml --bz-vorjahr 2025
 |---|---|
 | `input` | Pfad zur ENNI-XML-Eingabedatei (Dube-Export) |
 | `-o`, `--output` | Pfad zur Ausgabedatei (Standard: Eingabedatei wird überschrieben) |
+| `--schlagnummern` | Nur diese Schläge umbauen (Komma-getrennt, z.B. `9,12,15`) |
+| `--alle` | Alle GARTENBAU-Schläge umbauen (ohne Herbstansaat-Prüfung) |
 | `--no-backup` | Kein `.bak`-Backup der Eingabedatei anlegen |
-| `--bz-vorjahr` | Bezugszeitraum für Vorfrucht und Herbstansaat (Standard: `2024`) |
+| `--bz-vorjahr` | Bezugszeitraum Vorjahr (Standard: aus XML `<bezugsjahr>` ermittelt) |
 | `--dry-run` | Nur anzeigen, was geändert würde |
+
+### Erkennungslogik (Standardmodus)
+
+Ohne `--schlagnummern` oder `--alle` erkennt das Script automatisch, ob ein Schlag eine Herbstansaat hatte:
+
+1. Prüfe, ob unter dem **GARTENBAU-Anbau** Düngungen aus dem Vorjahr liegen
+2. Prüfe, ob unter der **Vorfrucht** Düngungen aus dem Vorjahr liegen
+3. Nur wenn mindestens eine Vorjahr-Düngung gefunden → **Umbau auf ACKER-GARTENBAU**
+4. Sonst → Schlag bleibt als **GARTENBAU** erhalten
 
 ## Nach dem Umbau
 
@@ -83,7 +104,8 @@ Die erzeugte XML-Datei kann in ENNI importiert werden. Die HERBSTANSAAT-Standard
 
 ## Hinweis
 
-Das Script wurde anhand der ENNI-Export-Datei von **Myfarm24** getestet. Bei Export-Dateien aus anderen Quellen können Abweichungen im XML-Format auftreten.
+- Das Script wurde anhand von ENNI-Export-Dateien aus **Myfarm24/Dube** getestet. Bei Export-Dateien aus anderen Quellen können Abweichungen im XML-Format auftreten.
+- Das Bezugsjahr wird automatisch aus dem XML-Element `<bezugsjahr>` ermittelt (Vorjahr = Bezugsjahr - 1). Mit `--bz-vorjahr` kann es manuell überschrieben werden.
 
 ## Lizenz
 
