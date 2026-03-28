@@ -75,13 +75,18 @@ def parse_args():
 
 
 def create_herbstansaat(anbauten, bz_vorjahr):
-    """Neuen HERBSTANSAAT-Anbau als Lfd=2 erstellen."""
+    """Neuen HERBSTANSAAT-Anbau als Lfd=2 erstellen mit Standard-Gründüngung."""
     herbst = ET.SubElement(anbauten, "anbau")
     ET.SubElement(herbst, "fruchtklasse").text = "HERBSTANSAAT"
     ET.SubElement(herbst, "anbau-im-fremdbetrieb").text = "false"
     ET.SubElement(herbst, "kulturfolge").text = "1"
+    ET.SubElement(herbst, "aussaattermin").text = "bis 15.09."
     ET.SubElement(herbst, "lfd-nr").text = "2"
+    ET.SubElement(herbst, "fruchtart").text = "ZFrucht028"
+    ET.SubElement(herbst, "fruchtart-bezeichnung").text = "ZF Gründüngung ohne Leguminosen"
     ET.SubElement(herbst, "bezugszeitraum").text = bz_vorjahr
+    ET.SubElement(herbst, "ernterueckstand").text = "ABGEFROREN"
+    ET.SubElement(herbst, "ertrag").text = "300.000000"
     return herbst
 
 
