@@ -45,12 +45,133 @@ Lfd=3  FK=GARTENBAU                     BZ=2025
 
 ## Installation
 
+Voraussetzung ist **Python 3.7 oder neuer**. Es werden keine externen Pakete benötigt (nur Python-Standardbibliothek).
+
+---
+
+### Windows
+
+#### 1. Python installieren
+
+1. Öffne <https://www.python.org/downloads/> und klicke auf **Download Python 3.x.x**.
+2. Starte die heruntergeladene `.exe`-Datei.
+3. **Wichtig:** Setze den Haken bei **"Add python.exe to PATH"**, bevor du auf *Install Now* klickst.
+4. Nach der Installation prüfen — öffne die **Eingabeaufforderung** (`Win + R` → `cmd` → Enter):
+   ```
+   python --version
+   ```
+   Es sollte z. B. `Python 3.12.3` erscheinen.
+
+#### 2. Script herunterladen
+
+**Variante A – als ZIP (ohne Git):**
+
+1. Öffne <https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix> im Browser.
+2. Klicke auf den grünen **Code**-Button → **Download ZIP**.
+3. Entpacke die ZIP-Datei in einen beliebigen Ordner, z. B. `C:\Users\MeinName\ENNI-Fix`.
+
+**Variante B – mit Git:**
+
+Falls Git bereits installiert ist (oder von <https://git-scm.com/downloads/win> installiert wird):
+
+```
+git clone https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix.git
+cd ENNI-Acker-Gartenbau-Fix
+```
+
+#### 3. Script ausführen
+
+Öffne die **Eingabeaufforderung** und wechsle in den entpackten Ordner:
+
+```
+cd C:\Users\MeinName\ENNI-Fix\ENNI-Acker-Gartenbau-Fix-main
+python fix_acker_gartenbau.py ENNI_Export.xml
+```
+
+---
+
+### macOS
+
+#### 1. Python installieren
+
+macOS bringt seit Catalina kein vorinstalliertes Python 3 mehr mit. Prüfe zuerst im **Terminal** (`Programme → Dienstprogramme → Terminal`):
+
+```bash
+python3 --version
+```
+
+Falls Python nicht vorhanden ist:
+
+1. Öffne <https://www.python.org/downloads/macos/> und lade das macOS-Installationspaket herunter.
+2. Öffne die `.pkg`-Datei und folge dem Installationsassistenten.
+
+#### 2. Script herunterladen
+
+**Variante A – als ZIP (ohne Git):**
+
+1. Öffne <https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix> im Browser.
+2. Klicke auf den grünen **Code**-Button → **Download ZIP**.
+3. Entpacke die ZIP-Datei (Doppelklick im Finder).
+
+**Variante B – mit Git:**
+
+Git ist auf macOS oft schon vorhanden. Falls nicht, installiert der Befehl `git` automatisch die Xcode Command Line Tools. Im Terminal:
+
 ```bash
 git clone https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix.git
 cd ENNI-Acker-Gartenbau-Fix
 ```
 
-Python 3.7+ wird benötigt. Es gibt keine externen Abhängigkeiten (nur Python-Standardbibliothek).
+#### 3. Script ausführen
+
+```bash
+cd ~/Downloads/ENNI-Acker-Gartenbau-Fix-main   # oder der Ordner, in den entpackt wurde
+python3 fix_acker_gartenbau.py ENNI_Export.xml
+```
+
+> **Hinweis:** Unter macOS heißt der Befehl `python3` (nicht `python`).
+
+---
+
+### Linux (Debian/Ubuntu)
+
+#### 1. Python installieren
+
+Die meisten Linux-Distributionen haben Python 3 vorinstalliert. Prüfe im Terminal:
+
+```bash
+python3 --version
+```
+
+Falls nicht vorhanden:
+
+```bash
+sudo apt update
+sudo apt install python3
+```
+
+#### 2. Script herunterladen
+
+**Variante A – als ZIP (ohne Git):**
+
+1. Öffne <https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix> im Browser.
+2. Klicke auf den grünen **Code**-Button → **Download ZIP**.
+3. Entpacke mit: `unzip ENNI-Acker-Gartenbau-Fix-main.zip`
+
+**Variante B – mit Git:**
+
+```bash
+sudo apt install git          # falls git nicht vorhanden
+git clone https://github.com/egruenh-co/ENNI-Acker-Gartenbau-Fix.git
+cd ENNI-Acker-Gartenbau-Fix
+```
+
+#### 3. Script ausführen
+
+```bash
+cd ENNI-Acker-Gartenbau-Fix-main   # oder ENNI-Acker-Gartenbau-Fix bei git clone
+python3 fix_acker_gartenbau.py ENNI_Export.xml
+```
 
 ## Verwendung
 
